@@ -26,6 +26,21 @@ namespace ordinals
       bool operator< (ordinal const& rhs) const { return rhs_nat_ < rhs.rhs_nat_; }
       bool operator<=(ordinal const& rhs) const { return (*this < rhs) || (*this == rhs); }
 
+      // range for support
+      auto begin() 
+      { 
+         struct NatIter
+         {
+            operator Nat()     { return nat;          }     // implicit Nat conversion
+            auto operator*()   { return nat;          }     // deref returns value
+            auto& operator++() { ++nat; return *this; }     // incr. increments
+            bool operator!=(NatIter const&) { return true; }// comparison is always false
+            Nat nat = 0;
+         };
+         return NatIter{};
+      }
+      auto end() { return begin(); }
+
    private:
       Nat rhs_nat_ = 0;
    };

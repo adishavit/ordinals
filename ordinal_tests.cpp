@@ -89,6 +89,22 @@ TEST_CASE("Comparison operators")
    CHECK_FALSE(o == 0);
 }
 
+TEST_CASE("Range for loop")
+{
+   ordinal o;
+   for (auto i : o)
+   {
+      if (10 < i) break;
+      CHECK(i < o);
+   }
 
-
-
+   for (auto beg = o.begin(); beg != o.end() ; ++beg)
+   {
+      if (10 < beg) break;
+      CHECK((beg < o));
+      CHECK((*beg) < o);
+      CHECK(*beg < o);
+      CHECK(ordinals::Nat(beg) < o);
+      CHECK(ordinals::Nat(*beg) < o);
+   }
+}
