@@ -2,7 +2,7 @@
 
 namespace ordinals
 {
-   using Nat = unsigned int;
+   using Nat = unsigned long long;
 
    struct ordinal
    {
@@ -10,6 +10,15 @@ namespace ordinals
       {
          rhs_nat_ += i;
          return *this;
+      }
+
+      // right hand increment: o += 1
+      ordinal& operator ++() { return *this += 1; }
+      ordinal operator ++(int) 
+      { 
+         ordinal tmp{ *this };
+         *this += 1;
+         return  tmp; 
       }
 
       bool operator==(ordinal const& rhs) const { return rhs_nat_ == rhs.rhs_nat_;  }
@@ -31,4 +40,8 @@ namespace ordinals
 
    // all finite numbers are smaller than any ordinal
    bool operator<(Nat, ordinal const&)       { return true;                }
+   bool operator==(Nat, ordinal const&) { return false; }
+   bool operator==(ordinal const&, Nat) { return false; }
+   bool operator!=(Nat, ordinal const&) { return true; }
+   bool operator!=(ordinal const&, Nat) { return true; }
 }

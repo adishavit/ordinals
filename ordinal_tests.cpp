@@ -47,6 +47,47 @@ TEST_CASE("Left/Right Ordering")
    CHECK(o <= 1 + o);
 }
 
+TEST_CASE("simple for loop")
+{
+   ordinal o;
+   for (int i = 0; i<o && i <10; ++i)
+      CHECK(i < o);
+
+   for (unsigned int i = 0; i < o && i < 10; ++i)
+      CHECK(i < o);
+
+   for (long i = 0; i < o && i < 10; ++i)
+      CHECK(i < o);
+
+   for (unsigned long i = 0; i < o && i < 10; ++i)
+      CHECK(i < o);
+
+   for (long long i = 0; i < o && i < 10; ++i)
+      CHECK(i < o);
+
+   for (unsigned long long i = 0; i < o && i < 10; ++i)
+      CHECK(i < o);
+
+   for (unsigned long long i = 0; i != o && i < 10; ++i)
+      CHECK(i < o);
+}
+
+TEST_CASE("Increment operators")
+{
+   ordinal o1, o2;
+   CHECK(o1 + 1 == ++o2);
+   CHECK(o1++ != o2);
+   CHECK(o1 == o2);
+}
+
+TEST_CASE("Comparison operators")
+{
+   ordinal o;
+   CHECK(0 != o);
+   CHECK(o != 0);
+   CHECK_FALSE(0 == o);
+   CHECK_FALSE(o == 0);
+}
 
 
 
